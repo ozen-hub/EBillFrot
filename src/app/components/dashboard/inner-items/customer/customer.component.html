@@ -1,1 +1,39 @@
-<p>customer works!</p>
+<div class="outer">
+  <div class="top-button-outer">
+    <button mat-raised-button color="accent">+ New Customer</button>
+  </div>
+  <form style="width: 100%">
+    <div class="row">
+      <div class="col-2">
+        <mat-form-field class="input-wrapper" appearance="outline">
+          <input type="text" matInput placeholder="Customer name">
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field class="input-wrapper" appearance="outline">
+          <input type="text" matInput placeholder="Address">
+        </mat-form-field>
+      </div>
+      <div class="col-2">
+        <mat-form-field class="input-wrapper" appearance="outline">
+          <input type="text" matInput placeholder="Salary">
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <button type="submit" mat-raised-button color="primary">Save Customer</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Salary</th>
+      <th>Option</th>
+    </tr>
+    </thead>
+  </table>
+</div>
