@@ -11,13 +11,17 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {ToastrModule} from "ngx-toastr";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,9 @@ import {HttpClientModule} from "@angular/common/http";
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
+
   ],
   providers: [],
   bootstrap: [AppComponent]
