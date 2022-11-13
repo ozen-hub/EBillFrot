@@ -15,3 +15,14 @@
     margin: 0;
   }
 }
+
+.button-pad{
+  height: 50px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  display: flex;
+  button{
+    margin-right: 20px;
+  }
+}

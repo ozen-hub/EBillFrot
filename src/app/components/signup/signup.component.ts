@@ -26,11 +26,14 @@ export class SignupComponent implements OnInit {
 
   constructor(private userService: UserService,
               private cookieService: AuthService,
-              private Router: Router,
+              private router: Router,
               private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
+    if (this.cookieService.isExists()){
+      this.router.navigate(['/dashboard']).then();
+    }
   }
 
   signup() {
@@ -41,7 +44,7 @@ export class SignupComponent implements OnInit {
     ).subscribe(response => {
       this.success(response.data.message);
       this.cookieService.createUser(response.data.token);
-      this.Router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/dashboard');
     }, error => {
       this.error('Error!');
     })
