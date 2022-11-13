@@ -4,12 +4,13 @@ import {LoginComponent} from "./components/login/login.component";
 import {SignupComponent} from "./components/signup/signup.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
   {path:'', redirectTo:'/login', pathMatch:'full'},
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
-  {path:'dashboard', component:DashboardComponent},
+  {path:'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
   {path:'**', component:NotFoundComponent},
 ];
 

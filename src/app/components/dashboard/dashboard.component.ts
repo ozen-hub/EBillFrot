@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+
   }
 
   public logout(){
@@ -27,7 +28,7 @@ export class DashboardComponent implements OnInit {
   private warning(message: string) {
     this.toastr.warning(message, 'Info!', {
       timeOut: 2000
-    })
+    });
   }
 
 }
