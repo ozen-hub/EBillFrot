@@ -14,6 +14,10 @@ import {HttpClientModule} from "@angular/common/http";
 import {ToastrModule} from "ngx-toastr";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {CookieService} from "ngx-cookie-service";
+import { CustomerComponent } from './components/dashboard/inner-items/customer/customer.component';
+import { ProductComponent } from './components/dashboard/inner-items/product/product.component';
+import { OrderComponent } from './components/dashboard/inner-items/order/order.component';
+import { OrderDetailComponent } from './components/dashboard/inner-items/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,11 @@ import {CookieService} from "ngx-cookie-service";
     LoginComponent,
     SignupComponent,
     NotFoundComponent,
-    DashboardComponent
+    DashboardComponent,
+    CustomerComponent,
+    ProductComponent,
+    OrderComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

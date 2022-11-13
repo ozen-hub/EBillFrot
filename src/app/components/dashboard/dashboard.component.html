@@ -5,11 +5,12 @@
   </div>
 
   <div class="button-pad">
-    <button mat-raised-button color="primary">Customer</button>
-    <button mat-raised-button color="primary">Product</button>
-    <button mat-raised-button color="primary">Orders</button>
-    <button mat-raised-button color="primary">Order Details</button>
+    <button mat-raised-button color="primary" routerLink="/dashboard/customer">Customer</button>
+    <button mat-raised-button color="primary" routerLink="/dashboard/product">Product</button>
+    <button mat-raised-button color="primary" routerLink="/dashboard/order">Orders</button>
+    <button mat-raised-button color="primary" routerLink="/dashboard/detail">Order Details</button>
   </div>
-
+  <hr>
+  <router-outlet></router-outlet>
 
 </div>
