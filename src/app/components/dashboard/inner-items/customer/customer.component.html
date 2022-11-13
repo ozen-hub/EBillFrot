@@ -35,5 +35,14 @@
       <th>Option</th>
     </tr>
     </thead>
+    <tbody>
+      <tr *ngFor="let c of customerList">
+        <td>{{c._id}}</td>
+        <td>{{c.name}}</td>
+        <td>{{c.address}}</td>
+        <td>{{c.salary}}</td>
+        <td><button mat-raised-button color="warn" (click)="setUpdateData(c._id)">Update</button></td>
+      </tr>
+    </tbody>
   </table>
 </div>

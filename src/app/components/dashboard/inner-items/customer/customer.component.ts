@@ -13,6 +13,8 @@ import {CustomerService} from "../../../../service/customer.service";
 })
 export class CustomerComponent implements OnInit {
 
+  customerList:any[]=[];
+
   customerForm = new FormGroup({
     name: new FormControl(null, [
       Validators.required
@@ -32,6 +34,7 @@ export class CustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadCustomers();
   }
 
   saveCustomer() {
@@ -44,6 +47,7 @@ export class CustomerComponent implements OnInit {
     }
     ).subscribe(response => {
       this.success(response.data.message);
+      this.loadCustomers();
      this.clearData();
     }, error => {
       this.error('Error!');
@@ -55,6 +59,14 @@ export class CustomerComponent implements OnInit {
       name:null,
       address:null,
       salary:null,
+    })
+  }
+
+  private loadCustomers(){
+    this.customerService.customerList().subscribe(response => {
+     this.customerList=response.data.value
+    }, error => {
+      this.error('Error!');
     })
   }
 
@@ -70,4 +82,7 @@ export class CustomerComponent implements OnInit {
     })
   }
 
+  setUpdateData(id: any) {
+    
+  }
 }

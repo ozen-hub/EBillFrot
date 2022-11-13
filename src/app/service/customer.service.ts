@@ -16,11 +16,13 @@ export class CustomerService {
   public saveCustomer(
     c:Customer
   ):Observable<any>{
-    console.log(c)
     return this.http.post(this.baseUrl+'customer/save',{
       name:c.name,
       address:c.address,
       salary:c.salary
     });
+  }
+  public customerList():Observable<any>{
+    return this.http.get(this.baseUrl+'customer/list');
   }
 }
