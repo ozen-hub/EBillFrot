@@ -11,4 +11,7 @@ export class AuthService {
   public createUser(token:string){
     this.cookieService.set('user-token',token);
   }
+  public logout(){
+    this.cookieService.delete('user-token');
+  }
 }
