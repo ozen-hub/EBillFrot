@@ -14,6 +14,7 @@ import {CustomerService} from "../../../../service/customer.service";
 export class CustomerComponent implements OnInit {
 
   customerList:any[]=[];
+  selectedCustomer:any;
 
   customerForm = new FormGroup({
     name: new FormControl(null, [
@@ -39,27 +40,45 @@ export class CustomerComponent implements OnInit {
 
   saveCustomer() {
 
-    this.customerService.saveCustomer({
-      name:this.customerForm.get('name')?.value,
-      address:this.customerForm.get('address')?.value,
-        // @ts-ignore
-      salary:Number.parseInt(this.customerForm.get('salary')?.value.toString())
+    if (this.selectedCustomer){
+      this.customerService.updateCustomer({
+          name:this.customerForm.get('name')?.value,
+          address:this.customerForm.get('address')?.value,
+          // @ts-ignore
+          salary:Number.parseInt(this.customerForm.get('salary')?.value.toString())
+        },this.selectedCustomer._id
+      ).subscribe(response => {
+        this.success(response.data.message);
+        this.loadCustomers();
+        this.clearData();
+      }, error => {
+        this.error('Error!');
+      })
+    }else{
+      this.customerService.saveCustomer({
+          name:this.customerForm.get('name')?.value,
+          address:this.customerForm.get('address')?.value,
+          // @ts-ignore
+          salary:Number.parseInt(this.customerForm.get('salary')?.value.toString())
+        }
+      ).subscribe(response => {
+        this.success(response.data.message);
+        this.loadCustomers();
+        this.clearData();
+      }, error => {
+        this.error('Error!');
+      })
     }
-    ).subscribe(response => {
-      this.success(response.data.message);
-      this.loadCustomers();
-     this.clearData();
-    }, error => {
-      this.error('Error!');
-    })
+
   }
 
-  private clearData() {
+  public clearData() {
     this.customerForm.patchValue({
       name:null,
       address:null,
       salary:null,
-    })
+    });
+    this.selectedCustomer=null;
   }
 
   private loadCustomers(){
@@ -83,6 +102,32 @@ export class CustomerComponent implements OnInit {
   }
 
   setUpdateData(id: any) {
-    
+    this.customerService.getCustomer(id).subscribe(response => {
+      if(response.data.value!==null){
+        this.selectedCustomer=response.data.value;
+        this.customerForm.patchValue({
+          name:this.selectedCustomer.name,
+          address:this.selectedCustomer.address,
+          salary:this.selectedCustomer.salary,
+        })
+
+      }else{
+        this.error('User not Found');
+      }
+    }, error => {
+      this.error('Error!');
+    })
+  }
+
+  deleteCustomer(id: any) {
+    if (confirm('are your sure?')){
+      this.customerService.deleteCustomer(id).subscribe(response => {
+        this.success("Deleted!");
+        this.loadCustomers();
+      }, error => {
+        this.error('Error!');
+      })
+    }
+
   }
 }

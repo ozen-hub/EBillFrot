@@ -1,1 +1,53 @@
-<p>product works!</p>
+<form style="width:100%" [formGroup]="productForm" (ngSubmit)="saveProduct()">
+<div class="main-outer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Description</mat-label>
+          <input type="text" matInput formControlName="description">
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-3">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Qty On Hand</mat-label>
+          <input type="number" matInput formControlName="qty">
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-3">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Unit Price</mat-label>
+          <input type="number" matInput formControlName="unitPrice">
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <p style="text-align: left">
+          <button mat-raised-button color="primary" [disabled]="productForm.invalid">Save Product</button>
+        </p>
+      </div>
+    </div>
+
+    <hr>
+
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let c of productList">
+        <td>{{c._id}}</td>
+        <td>{{c.description}}</td>
+        <td>{{c.qty}}</td>
+        <td>{{c.unitPrice}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+</form>

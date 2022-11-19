@@ -1,6 +1,6 @@
 <div class="outer">
   <div class="top-button-outer">
-    <button mat-raised-button color="accent">+ New Customer</button>
+    <button mat-raised-button color="accent" (click)="this.clearData()">+ New Customer</button>
   </div>
   <form [formGroup]="customerForm" (ngSubmit)="saveCustomer()" style="width: 100%">
     <div class="row">
@@ -20,7 +20,7 @@
         </mat-form-field>
       </div>
       <div class="col-12">
-        <button type="submit" [disabled]="customerForm.invalid" mat-raised-button color="primary">Save Customer</button>
+        <button type="submit" [disabled]="customerForm.invalid" mat-raised-button color="primary"> {{selectedCustomer?'Update Customer':'Save Customer'}}</button>
       </div>
     </div>
   </form>
@@ -41,7 +41,9 @@
         <td>{{c.name}}</td>
         <td>{{c.address}}</td>
         <td>{{c.salary}}</td>
-        <td><button mat-raised-button color="warn" (click)="setUpdateData(c._id)">Update</button></td>
+        <td><button mat-raised-button color="warn" (click)="setUpdateData(c._id)">Update</button>&nbsp;
+        <button mat-raised-button color="accent" (click)="deleteCustomer(c._id)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
