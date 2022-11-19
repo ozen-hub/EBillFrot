@@ -36,11 +36,12 @@
   </div>
   <hr>
   <div class="alert alert-dark">
+    <form [formGroup]="productForm">
     <div class="row" style="margin: 0">
       <div class="col-3">
         <mat-form-field appearance="outline" class="full-with">
           <mat-label>Product</mat-label>
-          <mat-select>
+          <mat-select formControlName="id" (ngModelChange)="setProductId()">
             <mat-option *ngFor="let p_data of productIds" [value]="p_data.id">
               {{p_data.description}}
             </mat-option>
@@ -50,27 +51,28 @@
       <div class="col-3">
         <mat-form-field appearance="outline" class="full-with">
           <mat-label>Description</mat-label>
-          <input type="text" matInput disabled>
+          <input formControlName="description" type="text" matInput [disabled]="true">
         </mat-form-field>
       </div>
       <div class="col-2">
         <mat-form-field appearance="outline" class="full-with">
           <mat-label>QTY On Hand</mat-label>
-          <input type="number" matInput disabled>
+          <input formControlName="qtyOnHand" type="number" matInput [disabled]="true">
         </mat-form-field>
       </div>
       <div class="col-2">
         <mat-form-field appearance="outline" class="full-with">
           <mat-label>Unit Price</mat-label>
-          <input type="number" matInput disabled>
+          <input formControlName="unitPrice" type="number" matInput [disabled]="true">
         </mat-form-field>
       </div>
       <div class="col-2">
         <mat-form-field appearance="outline" class="full-with">
           <mat-label>QTY</mat-label>
-          <input type="number" matInput>
+          <input formControlName="qty" type="number" matInput>
         </mat-form-field>
       </div>
     </div>
+    </form>
   </div>
 </div>

@@ -29,4 +29,12 @@ export class ProductService {
   public getAllProductIds():Observable<any>{
     return this.http.get(this.baseUrl + 'product/id-list', {});
   }
+
+  public getProduct(id: any): Observable<any> {
+    return this.http.get(this.baseUrl + 'product/get', {
+      headers: {
+        id:id
+      }
+    });
+  }
 }

@@ -13,6 +13,8 @@ export class OrderComponent implements OnInit {
 
   customerIds:any[]=[];
   productIds:any[]=[];
+  selectedCustomer:any;
+  selectedProduct:any;
 
   customerForm = new FormGroup({
     id:new FormControl(null,[
@@ -25,6 +27,23 @@ export class OrderComponent implements OnInit {
       Validators.required
     ]),
     salary: new FormControl('', [
+      Validators.required
+    ])
+  })
+  productForm = new FormGroup({
+    id:new FormControl(null,[
+      Validators.required
+    ]),
+    description: new FormControl(null, [
+      Validators.required
+    ]),
+    qtyOnHand: new FormControl(0, [
+      Validators.required
+    ]),
+    unitPrice: new FormControl(0, [
+      Validators.required
+    ]),
+    qty: new FormControl(0, [
       Validators.required
     ])
   })
@@ -69,6 +88,37 @@ export class OrderComponent implements OnInit {
   }
 
   setCustomerId() {
-    alert(this.customerForm.get('id')?.value);
+    this.customerService.getCustomer(this.customerForm.get('id')?.value).subscribe(response => {
+      if(response.data.value!==null){
+        this.selectedCustomer=response.data.value;
+        this.customerForm.patchValue({
+          name:this.selectedCustomer.name,
+          address:this.selectedCustomer.address,
+          salary:this.selectedCustomer.salary,
+        })
+
+      }else{
+        this.error('User not Found');
+      }
+    }, error => {
+      this.error('Error!');
+    })
+  }
+  setProductId() {
+    this.productService.getProduct(this.productForm.get('id')?.value).subscribe(response => {
+      if(response.data.value!==null){
+        this.selectedProduct=response.data.value;
+        this.productForm.patchValue({
+          description:this.selectedProduct.description,
+          qtyOnHand:this.selectedProduct.qty,
+          unitPrice:this.selectedProduct.unitPrice,
+        })
+
+      }else{
+        this.error('User not Found');
+      }
+    }, error => {
+      this.error('Error!');
+    })
   }
 }
