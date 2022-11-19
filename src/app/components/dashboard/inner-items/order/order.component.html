@@ -75,4 +75,39 @@
     </div>
     </form>
   </div>
+  <hr>
+  <p style="text-align: right">
+    <button type="button" mat-raised-button color="primary" (click)="addToCart()">Add To Cart</button>
+  </p>
+  <hr>
+  <div class="alert alert-warning" *ngIf="cart.length!==0">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Code</th>
+        <th>Description</th>
+        <th>Unit Price</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th>Option</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of cart; index as num">
+        <td>#-{{num+1}}</td>
+        <td>{{data.item._id}}</td>
+        <td>{{data.item.description}}</td>
+        <td>{{data.item.unitPrice}}</td>
+        <td>{{data.qty}}</td>
+        <td>{{data.total}}</td>
+        <td>
+          <button mat-raised-button color="warn">
+            Delete &nbsp; <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

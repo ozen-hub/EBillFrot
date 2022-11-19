@@ -19,6 +19,7 @@ import { ProductComponent } from './components/dashboard/inner-items/product/pro
 import { OrderComponent } from './components/dashboard/inner-items/order/order.component';
 import { OrderDetailComponent } from './components/dashboard/inner-items/order-detail/order-detail.component';
 import {MatSelectModule} from "@angular/material/select";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -32,18 +33,19 @@ import {MatSelectModule} from "@angular/material/select";
     OrderComponent,
     OrderDetailComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatInputModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        ToastrModule.forRoot(),
-        MatSelectModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    MatSelectModule,
+    MatIconModule,
 
-    ],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -15,6 +15,7 @@ export class OrderComponent implements OnInit {
   productIds:any[]=[];
   selectedCustomer:any;
   selectedProduct:any;
+  cart:any[]=[];
 
   customerForm = new FormGroup({
     id:new FormControl(null,[
@@ -120,5 +121,19 @@ export class OrderComponent implements OnInit {
     }, error => {
       this.error('Error!');
     })
+  }
+
+  addToCart(){
+    let unitPrice = Number(this.productForm.get('unitPrice')?.value);
+    let qty = Number(this.productForm.get('qty')?.value);
+    let total = unitPrice*qty;
+
+    this.cart.push({
+      unitPrice:unitPrice,
+      qty:qty,
+      total:total,
+      item:this.selectedProduct
+    });
+
   }
 }
