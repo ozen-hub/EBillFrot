@@ -24,6 +24,9 @@ export class ProductService {
   }
 
   public loadProducts():Observable<any>{
-    return this.http.get(this.baseUrl + 'product/all', {});
+    return this.http.get(this.baseUrl + 'product/list', {});
+  }
+  public getAllProductIds():Observable<any>{
+    return this.http.get(this.baseUrl + 'product/id-list', {});
   }
 }

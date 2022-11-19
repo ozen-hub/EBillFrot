@@ -52,4 +52,9 @@ export class CustomerService {
       }
     });
   }
+
+  public getAllCustomerIds(): Observable<any> {
+    return this.http.get(this.baseUrl + 'customer/id-list');
+  }
+
 }
