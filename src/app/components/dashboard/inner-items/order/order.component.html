@@ -102,7 +102,7 @@
         <td>{{data.qty}}</td>
         <td>{{data.total}}</td>
         <td>
-          <button mat-raised-button color="warn">
+          <button mat-raised-button color="warn" (click)="delete(data.item._id)">
             Delete &nbsp; <mat-icon>delete</mat-icon>
           </button>
         </td>

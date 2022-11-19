@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CustomerService} from "../../../../service/customer.service";
 import {ProductService} from "../../../../service/product.service";
 import {ToastrService} from "ngx-toastr";
@@ -11,14 +11,14 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class OrderComponent implements OnInit {
 
-  customerIds:any[]=[];
-  productIds:any[]=[];
-  selectedCustomer:any;
-  selectedProduct:any;
-  cart:any[]=[];
+  customerIds: any[] = [];
+  productIds: any[] = [];
+  selectedCustomer: any;
+  selectedProduct: any;
+  cart: any[] = [];
 
   customerForm = new FormGroup({
-    id:new FormControl(null,[
+    id: new FormControl(null, [
       Validators.required
     ]),
     name: new FormControl(null, [
@@ -32,7 +32,7 @@ export class OrderComponent implements OnInit {
     ])
   })
   productForm = new FormGroup({
-    id:new FormControl(null,[
+    id: new FormControl(null, [
       Validators.required
     ]),
     description: new FormControl(null, [
@@ -53,24 +53,25 @@ export class OrderComponent implements OnInit {
     private customerService: CustomerService,
     private productService: ProductService,
     private toastr: ToastrService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadAllCustomerIds();
     this.loadAllProductCodes();
   }
 
-  loadAllCustomerIds(){
+  loadAllCustomerIds() {
     this.customerService.getAllCustomerIds().subscribe(response => {
-      this.customerIds=response.data.value
+      this.customerIds = response.data.value
     }, error => {
       this.error('Error!');
     })
   }
 
-  loadAllProductCodes(){
+  loadAllProductCodes() {
     this.productService.getAllProductIds().subscribe(response => {
-      this.productIds=response.data.value
+      this.productIds = response.data.value
     }, error => {
       this.error('Error!');
     })
@@ -90,32 +91,33 @@ export class OrderComponent implements OnInit {
 
   setCustomerId() {
     this.customerService.getCustomer(this.customerForm.get('id')?.value).subscribe(response => {
-      if(response.data.value!==null){
-        this.selectedCustomer=response.data.value;
+      if (response.data.value !== null) {
+        this.selectedCustomer = response.data.value;
         this.customerForm.patchValue({
-          name:this.selectedCustomer.name,
-          address:this.selectedCustomer.address,
-          salary:this.selectedCustomer.salary,
+          name: this.selectedCustomer.name,
+          address: this.selectedCustomer.address,
+          salary: this.selectedCustomer.salary,
         })
 
-      }else{
+      } else {
         this.error('User not Found');
       }
     }, error => {
       this.error('Error!');
     })
   }
+
   setProductId() {
     this.productService.getProduct(this.productForm.get('id')?.value).subscribe(response => {
-      if(response.data.value!==null){
-        this.selectedProduct=response.data.value;
+      if (response.data.value !== null) {
+        this.selectedProduct = response.data.value;
         this.productForm.patchValue({
-          description:this.selectedProduct.description,
-          qtyOnHand:this.selectedProduct.qty,
-          unitPrice:this.selectedProduct.unitPrice,
+          description: this.selectedProduct.description,
+          qtyOnHand: this.selectedProduct.qty,
+          unitPrice: this.selectedProduct.unitPrice,
         })
 
-      }else{
+      } else {
         this.error('User not Found');
       }
     }, error => {
@@ -123,17 +125,47 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  addToCart(){
+  addToCart() {
     let unitPrice = Number(this.productForm.get('unitPrice')?.value);
     let qty = Number(this.productForm.get('qty')?.value);
-    let total = unitPrice*qty;
+    let total = unitPrice * qty;
 
-    this.cart.push({
-      unitPrice:unitPrice,
-      qty:qty,
-      total:total,
-      item:this.selectedProduct
-    });
+    if (this.isExists(this.selectedProduct._id)) {
+      for (const t of this.cart) {
+        if (t.item._id === this.selectedProduct._id) {
+          t.qty = (t.qty + qty);
+          t.total = (t.total + total);
+        }
+      }
+    } else {
+      this.cart.push({
+        unitPrice: unitPrice,
+        qty: qty,
+        total: total,
+        item: this.selectedProduct
+      });
+    }
 
+
+  }
+
+  isExists(id: string) {
+    for (const t of this.cart) {
+      if (t.item._id === id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  delete(_id: any) {
+    if (confirm('are you sure')){
+      for (let i = 0; i < this.cart.length; i++) {
+        if (_id === this.cart[i].item._id) {
+          this.cart.splice(i, 1);
+          return;
+        }
+      }
+    }
   }
 }
