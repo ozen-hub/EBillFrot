@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CustomerService} from "../../../../service/customer.service";
 import {ProductService} from "../../../../service/product.service";
 import {ToastrService} from "ngx-toastr";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-order',
@@ -10,8 +11,23 @@ import {ToastrService} from "ngx-toastr";
 })
 export class OrderComponent implements OnInit {
 
-  customerIds:string[]=[];
-  productIds:string[]=[];
+  customerIds:any[]=[];
+  productIds:any[]=[];
+
+  customerForm = new FormGroup({
+    id:new FormControl(null,[
+      Validators.required
+    ]),
+    name: new FormControl(null, [
+      Validators.required
+    ]),
+    address: new FormControl(null, [
+      Validators.required
+    ]),
+    salary: new FormControl('', [
+      Validators.required
+    ])
+  })
 
   constructor(
     private customerService: CustomerService,
@@ -52,4 +68,7 @@ export class OrderComponent implements OnInit {
     })
   }
 
+  setCustomerId() {
+    alert(this.customerForm.get('id')?.value);
+  }
 }
